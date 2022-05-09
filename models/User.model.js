@@ -1,20 +1,97 @@
 const { Schema, model } = require("mongoose");
-
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      // unique: true -> Ideally, should be unique, but its up to you
+      unique: true,
+      required: [true, "Username is required"],
     },
-    password: String,
+    password: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: [true, "Email is required"],
+    },
+    role: {
+      type: String,
+      enum: ['PREMIUM', 'ADMIN', 'FREEMIUM'],
+      default: 'FREEMIUM'
+    },
+    birthday: {
+      type: String,
+      required: [true, "You must be at least 18 years old to use Wink"],
+    },
+    identity: {
+      type: String,
+      enum: ['Men', 'Women', 'Non-binary', 'Gender-fluid'],
+    },
+    avatar: {
+      type: String,
+      default: "https://i.stack.imgur.com/l60Hf.png",
+      required: [true, " We accept JPGs and PNGs of at least 500x500px"],
+    },
+    city: {
+      type: String,
+      required: [true, "We need your location to show who’s nearby"],
+    },
+    interestedGender: {
+      type: String,
+      enum: ['Men', 'Women', 'Everyone'],
+    },
+    matches: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    personalityTest: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Test',
+    }],
+    heigth: {
+      type: Number,
+    },
+    exercise: {
+      type: String,
+      enum: ['Active', 'Sometimes', 'Almost never'],
+    },
+    zodiac: {
+      type: String,
+      enum: ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Saggitarius', 'Capricorn', 'Aquarius', 'Pisces'],
+    },
+    education: {
+      type: String,
+      enum: ['High School', 'In college', 'Undergraduate degree', 'Graduate degree'],
+    },
+    drink: {
+      type: String,
+      enum: ['Socially', 'Never', 'Frequently'],
+    },
+    smoke: {
+      type: String,
+      enum: ['Socially', 'Never', 'Regularly'],
+    },
+    lookingFor: {
+      type: String,
+      enum: ["Met new people", "Something casual", "Love relationship", "Don't know yet"],
+    },
+    children: {
+      type: String,
+      enum: ["Want someday", "Don't want", "Have and want more", "Have and don't want more", "Not sure yet"],
+    },
+    religion: {
+      type: String,
+      enum: ["Agnostic", "Religious", "Spiritual"],
+    },
+    political: {
+      type: String,
+      enum: ["Apolotical", "Moderate", "Liberal", "Conservative"],
+    },
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
-
 const User = model("User", userSchema);
-
 module.exports = User;
