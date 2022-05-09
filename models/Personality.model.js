@@ -1,76 +1,84 @@
 const { Schema, model } = require("mongoose");
-const personalitySchema = new Schema(
+
+const testSchema = new Schema(
     {
-        Question1: {
-            Answer1: {
-                type: Boolean
-            },
-            Answer2: {
-                type: Boolean
-            },
-            Answer3: {
-                type: Boolean
-            },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         },
-        Question2: {
-            Answer1: {
-                type: Boolean
+        questions: {
+            question1: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-            Answer2: {
-                type: Boolean
+            question2: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-            Answer3: {
-                type: Boolean
+            question3: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-        },
-        Question3: {
-            Answer1: {
-                type: Boolean
+            question4: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-            Answer2: {
-                type: Boolean
+            question5: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-            Answer3: {
-                type: Boolean
+            question6: {
+                answer1: {
+                    type: Boolean
+                },
+                answer2: {
+                    type: Boolean
+                },
+                answer3: {
+                    type: Boolean
+                },
             },
-        },
-        Question4: {
-            Answer1: {
-                type: Boolean
-            },
-            Answer2: {
-                type: Boolean
-            },
-            Answer3: {
-                type: Boolean
-            },
-        },
-        Question5: {
-            Answer1: {
-                type: Boolean
-            },
-            Answer2: {
-                type: Boolean
-            },
-            Answer3: {
-                type: Boolean
-            },
-        },
-        Question6: {
-            Answer1: {
-                type: Boolean
-            },
-            Answer2: {
-                type: Boolean
-            },
-            Answer3: {
-                type: Boolean
-            },
-        },
+        }
     },
     {
         timestamps: true,
     }
 );
-const Personality = model("Personality", personalitySchema);
-module.exports = Personality;
+
+const Test = model("Test", testSchema);
+module.exports = Test;

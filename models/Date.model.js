@@ -1,10 +1,8 @@
 const { Schema, model } = require("mongoose");
-const dateSchema = new Schema(
+
+const experienceSchema = new Schema(
     {
         date: {
-            type: Date
-        },
-        time: {
             type: Date
         },
         place: {
@@ -22,4 +20,6 @@ const dateSchema = new Schema(
         timestamps: true,
     }
 );
-const Personality = model("Date", dateSchema);
+
+const Experience = model("Experience", experienceSchema);
+module.exports = Experience;

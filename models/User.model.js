@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+
 const userSchema = new Schema(
   {
     username: {
@@ -8,7 +9,6 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -17,16 +17,21 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['PREMIUM', 'ADMIN', 'FREEMIUM'],
-      default: 'FREEMIUM'
+      enum: ['USER', 'ADMIN'],
+      default: 'USER'
     },
-    birthday: {
+    modality: {
       type: String,
+      enum: ['WINKER', 'WINKER-PREMIUM'],
+      default: 'WINKER'
+    },
+    birth: {
+      type: Date,
       required: [true, "You must be at least 18 years old to use Wink"],
     },
     identity: {
       type: String,
-      enum: ['Men', 'Women', 'Non-binary', 'Gender-fluid'],
+      enum: ['Men', 'Women', 'Non-binary', 'Gender-fluid', 'Other'],
     },
     avatar: {
       type: String,
@@ -45,53 +50,52 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     }],
-    personalityTest: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Test',
-    }],
-    heigth: {
-      type: Number,
-    },
-    exercise: {
-      type: String,
-      enum: ['Active', 'Sometimes', 'Almost never'],
-    },
-    zodiac: {
-      type: String,
-      enum: ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Saggitarius', 'Capricorn', 'Aquarius', 'Pisces'],
-    },
-    education: {
-      type: String,
-      enum: ['High School', 'In college', 'Undergraduate degree', 'Graduate degree'],
-    },
-    drink: {
-      type: String,
-      enum: ['Socially', 'Never', 'Frequently'],
-    },
-    smoke: {
-      type: String,
-      enum: ['Socially', 'Never', 'Regularly'],
-    },
-    lookingFor: {
-      type: String,
-      enum: ["Met new people", "Something casual", "Love relationship", "Don't know yet"],
-    },
-    children: {
-      type: String,
-      enum: ["Want someday", "Don't want", "Have and want more", "Have and don't want more", "Not sure yet"],
-    },
-    religion: {
-      type: String,
-      enum: ["Agnostic", "Religious", "Spiritual"],
-    },
-    political: {
-      type: String,
-      enum: ["Apolotical", "Moderate", "Liberal", "Conservative"],
-    },
+    features: {
+      heigth: {
+        type: Number,
+      },
+      exercise: {
+        type: String,
+        enum: ['Active', 'Sometimes', 'Almost never'],
+      },
+      zodiac: {
+        type: String,
+        enum: ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Saggitarius', 'Capricorn', 'Aquarius', 'Pisces'],
+      },
+      education: {
+        type: String,
+        enum: ['High School', 'In college', 'Undergraduate degree', 'Graduate degree'],
+      },
+      drink: {
+        type: String,
+        enum: ['Socially', 'Never', 'Frequently'],
+      },
+      smoke: {
+        type: String,
+        enum: ['Socially', 'Never', 'Regularly'],
+      },
+      lookingFor: {
+        type: String,
+        enum: ["Met new people", "Something casual", "Love relationship", "Don't know yet"],
+      },
+      children: {
+        type: String,
+        enum: ["Want someday", "Don't want", "Have and want more", "Have and don't want more", "Not sure yet"],
+      },
+      religion: {
+        type: String,
+        enum: ["Agnostic", "Religious", "Spiritual"],
+      },
+      political: {
+        type: String,
+        enum: ["Apolotical", "Moderate", "Liberal", "Conservative"],
+      },
+    }
   },
   {
     timestamps: true,
   }
 );
+
 const User = model("User", userSchema);
 module.exports = User;
