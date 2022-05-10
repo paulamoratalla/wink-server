@@ -2,6 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const experienceSchema = new Schema(
     {
+        name: {
+            type: String,
+        },
         date: {
             type: Date
         },
@@ -15,6 +18,13 @@ const experienceSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User',
         }],
+        imageExp: {
+            type: String,
+            default: "https://i.stack.imgur.com/l60Hf.png",
+        },
+        descriptionExp: {
+            type: String,
+        }
     },
     {
         timestamps: true,

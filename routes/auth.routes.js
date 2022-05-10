@@ -6,7 +6,6 @@ const User = require("../models/User.model")
 const router = express.Router()
 const saltRounds = 10
 
-
 // Create user
 router.post('/signup', (req, res, next) => {
 
