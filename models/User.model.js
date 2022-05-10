@@ -2,10 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
-      unique: true,
-      required: [true, "Username is required"],
+      required: [true, "Name is required"],
     },
     password: {
       type: String,
@@ -27,13 +26,13 @@ const userSchema = new Schema(
     },
     birth: {
       type: Date,
-      required: [true, "You must be at least 18 years old to use Wink"],
+      // required: [true, "You must be at least 18 years old to use Wink"],
     },
     identity: {
       type: String,
       enum: ['Men', 'Women', 'Non-binary', 'Gender-fluid', 'Other'],
     },
-    avatar: {
+    profileImg: {
       type: String,
       default: "https://i.stack.imgur.com/l60Hf.png",
       required: [true, " We accept JPGs and PNGs of at least 500x500px"],
