@@ -62,17 +62,6 @@ const testSchema = new Schema(
                     type: Boolean
                 },
             },
-            question6: {
-                answer1: {
-                    type: Boolean
-                },
-                answer2: {
-                    type: Boolean
-                },
-                answer3: {
-                    type: Boolean
-                },
-            },
         }
     },
     {
