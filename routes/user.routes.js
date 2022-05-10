@@ -35,10 +35,11 @@ router.delete("/:userId/delete", (req, res) => {
 // Edit user
 router.put('/:userId/edit', (req, res) => {
 
+    const { email, password } = req.body
     const { userId } = req.params
 
     User
-        .findByIdAndUpdate(userId)
+        .findByIdAndUpdate(userId, { email, password })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
