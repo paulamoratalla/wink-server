@@ -30,7 +30,7 @@ router.delete('/:userId/delete', (req, res) => {
     User
         .findByIdAndDelete(userId)
         .then(response => res.json(response))
-        .catch((err) => res.json(err))
+        .catch(err => res.status(500).json(err))
 })
 
 // Edit user

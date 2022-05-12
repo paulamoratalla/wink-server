@@ -71,7 +71,7 @@ router.delete("/:testId/delete", (req, res) => {
     Test
         .findByIdAndDelete(testId)
         .then(response => res.json(response))
-        .catch((err) => res.json(err))
+        .catch(err => res.status(500).json(err))
 })
 
 // Edit test
