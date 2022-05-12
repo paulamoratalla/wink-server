@@ -41,7 +41,7 @@ router.delete("/:experienceId/delete", (req, res) => {
     Experience
         .findByIdAndDelete(experienceId)
         .then(experience => res.json(experience))
-        .catch((err) => res.json(err))
+        .catch(err => res.status(500).json(err))
 })
 
 // Edit experience
