@@ -5,7 +5,8 @@ const User = require('./../models/User.model')
 //Create a test
 router.post('/new', (req, res) => {
 
-    const { owner, answer11, answer12, answer13, answer21, answer22, answer23, answer31, answer32, answer33, answer41, answer42, answer43, answer51, answer52, answer53 } = req.body
+    const { answer11, answer12, answer13, answer21, answer22, answer23, answer31, answer32, answer33, answer41, answer42, answer43, answer51, answer52, answer53 } = req.body
+    const owner = req.payload._id
 
     const questions = {
         question1: {
@@ -37,7 +38,6 @@ router.post('/new', (req, res) => {
 
     Test
         .create({ owner, questions })
-        .populate('owner')
         .then(test => res.json(test))
         .catch(err => res.status(500).json(err))
 })
@@ -47,7 +47,6 @@ router.get('/all', (req, res) => {
 
     Test
         .find()
-        .populate('owner')
         .select('owner')
         .then(tests => res.json(tests))
         .catch(err => res.status(500).json(err))

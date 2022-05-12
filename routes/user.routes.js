@@ -23,7 +23,7 @@ router.get('/:userId', (req, res) => {
 })
 
 // Delete user 
-router.delete("/:userId/delete", (req, res) => {
+router.delete('/:userId/delete', (req, res) => {
 
     const { userId } = req.params
 
