@@ -49,6 +49,9 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     }],
+    gallery: [{
+      type: String,
+    }],
     features: {
       heigth: {
         type: Number,

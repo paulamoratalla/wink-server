@@ -45,4 +45,28 @@ router.put('/:userId/edit', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+//Add to My Matches
+router.post('/:usersId/add-match', (req, res, next) => {
+
+    const { userId } = req.params
+    const thisUser = req.session.currentUser._id
+
+    User
+        .findByIdAndUpdate(thisUser, { $addToSet: { matches: userId } })
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json(err))
+});
+
+//Remove from My Matches
+router.post('/:usersId/remove-match', (req, res, next) => {
+
+    const { userId } = req.params
+    const thisUser = req.session.currentUser._id
+
+    User
+        .findByIdAndUpdate(thisUser, { $pull: { matches: userId } })
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
