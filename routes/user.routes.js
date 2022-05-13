@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const User = require('./../models/User.model')
+const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 // Get all users 
-router.get('/all', (req, res) => {
+router.get('/all', isAuthenticated, (req, res) => {
 
     User
         .find()
@@ -12,7 +13,7 @@ router.get('/all', (req, res) => {
 })
 
 // Get user profile
-router.get('/:userId', (req, res) => {
+router.get('/:userId', isAuthenticated, (req, res) => {
 
     const { userId } = req.params
 
@@ -23,7 +24,7 @@ router.get('/:userId', (req, res) => {
 })
 
 // Delete user 
-router.delete('/:userId/delete', (req, res) => {
+router.delete('/:userId/delete', isAuthenticated, (req, res) => {
 
     const { userId } = req.params
 
@@ -34,7 +35,7 @@ router.delete('/:userId/delete', (req, res) => {
 })
 
 // Edit user
-router.put('/:userId/edit', (req, res) => {
+router.put('/:userId/edit', isAuthenticated, (req, res) => {
 
     const { email, password } = req.body
     const { userId } = req.params

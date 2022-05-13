@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const Experience = require('./../models/Experience.model')
+const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 // Create experience 
-router.post('/create', (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
 
     const { name, place, price, imageExp, descriptionExp } = req.body
 
@@ -23,7 +24,7 @@ router.get('/list', (req, res) => {
 })
 
 // Get experience details
-router.get('/:experienceId', (req, res) => {
+router.get('/:experienceId', isAuthenticated, (req, res) => {
 
     const { experienceId } = req.params
 
@@ -34,7 +35,7 @@ router.get('/:experienceId', (req, res) => {
 })
 
 // Delete experience
-router.delete("/:experienceId/delete", (req, res) => {
+router.delete("/:experienceId/delete", isAuthenticated, (req, res) => {
 
     const { experienceId } = req.params
 
@@ -45,7 +46,7 @@ router.delete("/:experienceId/delete", (req, res) => {
 })
 
 // Edit experience
-router.put('/:experienceId/edit', (req, res) => {
+router.put('/:experienceId/edit', isAuthenticated, (req, res) => {
 
     const { name, place, price, imageExp, descriptionExp } = req.body
     const { experienceId } = req.params
