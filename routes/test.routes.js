@@ -86,4 +86,78 @@ router.put('/:testId/edit', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Compare test 
+router.post('/testId/match', (req, res) => {
+
+    const { id } = req.params
+    const { _id } = req.session.currentUser
+
+    Test
+        .findById(id)
+        .then(test => {
+
+            let matchCount = ''
+            let afinidad = ''
+
+            if (id.answer11 == true && _id.answer11 == true) {
+                return matchCount += 1
+            }
+            if (id.answer12 == true && _id.answer12 == true) {
+                return matchCount += 1
+            }
+            if (id.answer13 == true && _id.answer13 == true) {
+                return matchCount += 1
+            }
+            if (id.answer21 == true && _id.answer21 == true) {
+                return matchCount += 1
+            }
+            if (id.answer22 == true && _id.answer22 == true) {
+                return matchCount += 1
+            }
+            if (id.answer23 == true && _id.answer23 == true) {
+                return matchCount += 1
+            }
+            if (id.answer31 == true && _id.answer31 == true) {
+                return matchCount += 1
+            }
+            if (id.answer32 == true && _id.answer32 == true) {
+                return matchCount += 1
+            }
+            if (id.answer33 == true && _id.answer33 == true) {
+                return matchCount += 1
+            }
+            if (id.answer41 == true && _id.answer41 == true) {
+                return matchCount += 1
+            }
+            if (id.answer42 == true && _id.answer42 == true) {
+                return matchCount += 1
+            }
+            if (id.answer43 == true && _id.answer43 == true) {
+                return matchCount += 1
+            }
+            if (id.answer51 == true && _id.answer51 == true) {
+                return matchCount += 1
+            }
+            if (id.answer52 == true && _id.answer52 == true) {
+                return matchCount += 1
+            }
+            if (id.answer53 == true && _id.answer53 == true) {
+                return matchCount += 1
+            } else {
+                return matchCount
+            }
+
+            if ((matchCount >= 3) == true) {
+                return afinidad == true
+            }
+
+            if (afinidad == true) {
+
+            }
+
+        })
+        // Test.find({ answer: test.answer, })
+        .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
