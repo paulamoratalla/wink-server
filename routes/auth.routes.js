@@ -8,7 +8,7 @@ const router = express.Router()
 const saltRounds = 10
 
 // Create user
-router.post('/signup', (req, res, next) => {
+router.post('/signup', (req, res) => {
 
     const { name, password, email, profileImg, city } = req.body
 
@@ -44,7 +44,7 @@ router.post('/signup', (req, res, next) => {
 })
 
 // Login user
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
 
     const { email, password } = req.body
 

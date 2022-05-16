@@ -24,13 +24,17 @@ const userSchema = new Schema(
       enum: ['WINKER', 'WINKER-PREMIUM'],
       default: 'WINKER'
     },
+    dates: {
+      type: Schema.Types.ObjectId,
+      ref: 'Date',
+    },
     birth: {
       type: Date,
       // required: [true, "You must be at least 18 years old to use Wink"],
     },
     identity: {
       type: String,
-      enum: ['Men', 'Women', 'Non-binary', 'Gender-fluid', 'Other'],
+      enum: ['Man', 'Woman', 'Non-binary', 'Gender-fluid', 'Other'],
     },
     profileImg: {
       type: String,
@@ -53,7 +57,7 @@ const userSchema = new Schema(
       type: String,
     }],
     features: {
-      heigth: {
+      height: {
         type: Number,
       },
       exercise: {
@@ -66,7 +70,7 @@ const userSchema = new Schema(
       },
       education: {
         type: String,
-        enum: ['High School', 'In college', 'Undergraduate degree', 'Graduate degree'],
+        enum: ['High School', 'In college', 'Undergraduate degree', 'Graduate degree', 'Postgraduate studies'],
       },
       drink: {
         type: String,
@@ -86,11 +90,11 @@ const userSchema = new Schema(
       },
       religion: {
         type: String,
-        enum: ["Agnostic", "Religious", "Spiritual"],
+        enum: ["Agnostic", "Religious", "Spiritual", "Atheist"],
       },
       political: {
         type: String,
-        enum: ["Apolotical", "Moderate", "Liberal", "Conservative"],
+        enum: ["Apolitical", "Moderate", "Liberal", "Conservative"],
       },
     }
   },

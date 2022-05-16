@@ -14,10 +14,6 @@ const experienceSchema = new Schema(
         price: {
             type: Number
         },
-        lovers: [{
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-        }],
         imageExp: {
             type: String,
             default: "https://i.stack.imgur.com/l60Hf.png",
