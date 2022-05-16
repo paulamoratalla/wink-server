@@ -24,6 +24,10 @@ const userSchema = new Schema(
       enum: ['WINKER', 'WINKER-PREMIUM'],
       default: 'WINKER'
     },
+    dates: {
+      type: Schema.Types.ObjectId,
+      ref: 'Date',
+    },
     birth: {
       type: Date,
       // required: [true, "You must be at least 18 years old to use Wink"],

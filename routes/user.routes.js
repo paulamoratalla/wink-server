@@ -3,7 +3,7 @@ const User = require('./../models/User.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 // Get all users 
-router.get('/all', isAuthenticated, (req, res) => {
+router.get('/all', (req, res) => {
 
     User
         .find()
@@ -35,13 +35,26 @@ router.delete('/:userId/delete', isAuthenticated, (req, res) => {
 })
 
 // Edit user
-router.put('/:userId/edit', isAuthenticated, (req, res) => {
+router.put('/:userId/edit', (req, res) => {
 
-    const { email, password } = req.body
+    const { name, email, birth, identity, profileImg, city, interestedGender, heigth, exercise, zodiac, education, drink, smoke, lookingFor, children, religion, political } = req.body
     const { userId } = req.params
 
+    const features = {
+        heigth: heigth,
+        exercise: exercise,
+        zodiac: zodiac,
+        education: education,
+        drink: drink,
+        smoke: smoke,
+        lookingFor: lookingFor,
+        children: children,
+        religion: religion,
+        political: political
+    }
+
     User
-        .findByIdAndUpdate(userId, { email, password })
+        .findByIdAndUpdate(userId, { name, email, birth, identity, profileImg, city, interestedGender, features })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
@@ -71,3 +84,4 @@ router.post('/:usersId/remove-match', (req, res, next) => {
 })
 
 module.exports = router
+

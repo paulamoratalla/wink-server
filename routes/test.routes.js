@@ -89,77 +89,159 @@ router.put('/:testId/edit', isAuthenticated, (req, res) => {
 })
 
 //Compare test
-router.post('/testId/match', (req, res) => {
-    const { id } = req.params
+router.post('/:testId/match', isAuthenticated, (req, res) => {
+
     const { _id } = req.payload
 
-    // let promise1 = User.find()
-    // let promise2 = User.findById(_id)
+    const promises = [
+        Test.find({ owner: { _id } }),
+        Test.find()
+    ]
 
-    // Promise.
-    //     all([promise1, promise2])
-    //     .then(console.log(promise2)) // comparas los resultados del test de currentUser con cada user.test. cada answer
+    // const results = {
+    //     question1: {
+    //         answer1: answer11,
+    //         answer2: answer12,
+    //         answer3: answer13,
+    //     },
+    // }
 
-    Test
-        .findById(id)
-        .then(test => {
-            let matchCount = 0
-            let afinidad = ''
-            if (id.answer11 == true && _id.answer11 == true) {
-                return matchCount += 1
+
+    Promise
+        .all(promises)
+        .then(([test, allTests]) => {
+
+            const result = {
+                test,
+                allTests
             }
-            if (id.answer12 == true && _id.answer12 == true) {
-                return matchCount += 1
-            }
-            if (id.answer13 == true && _id.answer13 == true) {
-                return matchCount += 1
-            }
-            if (id.answer21 == true && _id.answer21 == true) {
-                return matchCount += 1
-            }
-            if (id.answer22 == true && _id.answer22 == true) {
-                return matchCount += 1
-            }
-            if (id.answer23 == true && _id.answer23 == true) {
-                return matchCount += 1
-            }
-            if (id.answer31 == true && _id.answer31 == true) {
-                return matchCount += 1
-            }
-            if (id.answer32 == true && _id.answer32 == true) {
-                return matchCount += 1
-            }
-            if (id.answer33 == true && _id.answer33 == true) {
-                return matchCount += 1
-            }
-            if (id.answer41 == true && _id.answer41 == true) {
-                return matchCount += 1
-            }
-            if (id.answer42 == true && _id.answer42 == true) {
-                return matchCount += 1
-            }
-            if (id.answer43 == true && _id.answer43 == true) {
-                return matchCount += 1
-            }
-            if (id.answer51 == true && _id.answer51 == true) {
-                return matchCount += 1
-            }
-            if (id.answer52 == true && _id.answer52 == true) {
-                return matchCount += 1
-            }
-            if (id.answer53 == true && _id.answer53 == true) {
-                return matchCount += 1
-            } else {
-                return matchCount
-            }
-            if ((matchCount >= 3) == true) {
-                return afinidad == true
-            }
-            if (afinidad == true) {
-            }
+
+            // allTests.forEach(test => {
+            //     let questions = test.questions
+            //     for (let key in questions) {
+            //         console.log(questions[key]) // tenemos las tres answers
+            //     }
+            // })
+            //     allTests.forEach(questionsArray =>
+            //         results.forEach(answerData =>
+            //             console.log(answerData)))
+
+
+            // })
         })
-        // Test.find({ answer: test.answer, })
-        .catch(err => res.status(500).json(err))
 })
+
+// allTest.forEach(function (questionsArray) {
+//     questionsArray.forEach(function (answerData) {
+//         console.log(answerData)
+//     })
+// })
+
+
+
+
+
+// .then(answerData => {
+//     res.json(result)
+// })
+
+// .catch(err => res.status(500).json(err))
+
+// })
+
+
+// parentArray.forEach(function (childArray) {
+//     childArray.forEach(function (item) {
+//         console.log(item);
+//     });
+// });
+
+
+
+
+
+// Match
+//     .findById(id)
+//     .then(matches => {
+
+//         if (matches.players.length < 4) {
+
+//             Match
+//                 .findByIdAndUpdate(id, { $addToSet: { players: _id } })
+//                 .then(() => res.redirect('/partidos'))
+//                 .catch(err => console.log(err))
+//         } else {
+//             res.redirect('/partidos')
+//         }
+
+
+
+// Promise.
+//     all([promise1, promise2])
+//     .then(({ data }) => {
+//         console.log(data)
+//     }) // comparas los resultados del test de currentUser con cada user.test. cada answer
+
+// Test
+//     .findById(id)
+//     .then(test => {
+//         let matchCount = 0
+//         let afinidad = ''
+//         if (id.answer11 == true && _id.answer11 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer12 == true && _id.answer12 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer13 == true && _id.answer13 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer21 == true && _id.answer21 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer22 == true && _id.answer22 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer23 == true && _id.answer23 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer31 == true && _id.answer31 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer32 == true && _id.answer32 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer33 == true && _id.answer33 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer41 == true && _id.answer41 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer42 == true && _id.answer42 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer43 == true && _id.answer43 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer51 == true && _id.answer51 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer52 == true && _id.answer52 == true) {
+//             return matchCount += 1
+//         }
+//         if (id.answer53 == true && _id.answer53 == true) {
+//             return matchCount += 1
+//         } else {
+//             return matchCount
+//         }
+//         if ((matchCount >= 3) == true) {
+//             return afinidad == true
+//         }
+//         if (afinidad == true) {
+//         }
+//     })
+//     // Test.find({ answer: test.answer, })
+//     .catch(err => res.status(500).json(err))
+// })
 
 module.exports = router
