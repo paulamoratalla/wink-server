@@ -17,7 +17,6 @@ router.get('/list', (req, res) => {
 
     Experience
         .find()
-        .select('name')
         .then(experiences => res.json(experiences))
         .catch(err => res.status(500).json(err))
 })
