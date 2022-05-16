@@ -4,14 +4,15 @@ const { isAuthenticated } = require('../middleware/jwt.middleware')
 // isAuthenticated
 
 // Create date
-router.post('/create', (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
 
     const { experience, date, lover } = req.body
-    const { _id } = req.payload
+    const creator = req.payload._id
     // const host = User.findById(id).populate("matches")
 
+
     Winkdate
-        .create({ experience, date, lover, creator: _id })
+        .create({ experience, date, lover, creator }) // comprobar que llegue experiences
         .then(newWinkdate => res.json(newWinkdate))
         .catch(err => res.status(500).json(err))
 })

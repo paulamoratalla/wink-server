@@ -89,46 +89,56 @@ router.put('/:testId/edit', isAuthenticated, (req, res) => {
 })
 
 //Compare test
-router.post('/:testId/match', isAuthenticated, (req, res) => {
+router.post('/match', isAuthenticated, (req, res) => {
 
     const { _id } = req.payload
 
     const promises = [
-        Test.find({ owner: { _id } }),
+        Test.findOne({ owner: { _id } }),
         Test.find()
     ]
 
-    // const results = {
-    //     question1: {
-    //         answer1: answer11,
-    //         answer2: answer12,
-    //         answer3: answer13,
-    //     },
-    // }
-
+    let loveCounter = 0
 
     Promise
         .all(promises)
         .then(([test, allTests]) => {
 
-            const result = {
-                test,
-                allTests
-            }
+            let myTest = Object.entries(test.questions)
 
-            // allTests.forEach(test => {
-            //     let questions = test.questions
-            //     for (let key in questions) {
-            //         console.log(questions[key]) // tenemos las tres answers
-            //     }
-            // })
-            //     allTests.forEach(questionsArray =>
-            //         results.forEach(answerData =>
-            //             console.log(answerData)))
+            myTest.forEach(eachMyUserQuestion => {
+                eachMyUserQuestion.forEach(() => {
+                    let questionName = eachMyUserQuestion[0]
+                    let answerArr = Object.values(eachMyUserQuestion[1])
 
+                    allTests.forEach(test => {
 
-            // })
+                        loveCounter = 0
+
+                        let eachTest = Object.entries(test.questions)
+
+                        eachTest.forEach(eachQuestion => {
+                            eachQuestion.forEach(() => {
+
+                                let questionName1 = eachQuestion[0]
+                                let answerArr1 = Object.values(eachQuestion[1])
+
+                                if (questionName === questionName1) {
+                                    if (answerArr[0] === answerArr1[0] || answerArr[1] === answerArr1[1] || answerArr[2] === answerArr1[2]) {
+                                        console.log('SE SUMA UN PUNTITO DE MATCH TOMA YA')
+                                        loveCounter++
+                                        console.log('ESTE ES EL CONTADOR DEL AMORRRRR', loveCounter)
+
+                                    }
+                                }
+                            })
+                        })
+                    })
+                })
+            })
         })
+
+    User.find() // --------> el user con el que se ha hecho match para addToSet a matches del req.payload
 })
 
 // allTest.forEach(function (questionsArray) {
