@@ -37,11 +37,11 @@ router.delete('/:userId/delete', isAuthenticated, (req, res) => {
 // Edit user
 router.put('/:userId/edit', (req, res) => {
 
-    const { name, email, birth, identity, profileImg, city, interestedGender, heigth, exercise, zodiac, education, drink, smoke, lookingFor, children, religion, political } = req.body
+    const { name, email, birth, identity, profileImg, city, interestedGender, height, exercise, zodiac, education, drink, smoke, lookingFor, children, religion, political } = req.body
     const { userId } = req.params
 
     const features = {
-        heigth: heigth,
+        height: height,
         exercise: exercise,
         zodiac: zodiac,
         education: education,
