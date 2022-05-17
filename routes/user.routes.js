@@ -12,13 +12,14 @@ router.get('/all', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-// Get user profile
-router.get('/:userId', isAuthenticated, (req, res) => {
 
-    const { userId } = req.params
+// Get my profile
+router.get('/profile', isAuthenticated, (req, res) => {
+
+    const { _id } = req.payload
 
     User
-        .findById(userId)
+        .findById(_id)
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
@@ -83,5 +84,15 @@ router.post('/:usersId/remove-match', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Get user profile
+router.get('/:userId', isAuthenticated, (req, res) => {
+
+    const { userId } = req.params
+
+    User
+        .findById(userId)
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json(err))
+})
 module.exports = router
 
