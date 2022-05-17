@@ -60,26 +60,39 @@ router.put('/:userId/edit', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-//Add to My Matches
-router.post('/:usersId/add-match', (req, res, next) => {
+//Add to people
+router.post('/:usersId/add-people', (req, res, next) => {
 
     const { userId } = req.params
-    const thisUser = req.session.currentUser._id
+    const thisUser = req.payload._id
 
     User
-        .findByIdAndUpdate(thisUser, { $addToSet: { matches: userId } })
+        .findByIdAndUpdate(thisUser, { $addToSet: { people: userId } })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 });
 
-//Remove from My Matches
-router.post('/:usersId/remove-match', (req, res, next) => {
+//Add to my matches
+// router.post('/:usersId/add-defmatch', (req, res, next) => {
+
+//     const { userId } = req.params
+//     const thisUser = req.session.currentUser._id
+//     if ()
+
+//         User
+//             .findByIdAndUpdate(thisUser, { $addToSet: { defMatches: userId } })
+//             .then(user => res.json(user))
+//             .catch(err => res.status(500).json(err))
+// });
+
+//Remove from people
+router.post('/:usersId/remove', (req, res, next) => {
 
     const { userId } = req.params
-    const thisUser = req.session.currentUser._id
+    const thisUser = req.payload._id
 
     User
-        .findByIdAndUpdate(thisUser, { $pull: { matches: userId } })
+        .findByIdAndUpdate(thisUser, { $pull: { people: userId } })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
