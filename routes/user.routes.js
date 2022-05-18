@@ -107,5 +107,27 @@ router.get('/:userId', isAuthenticated, (req, res) => {
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
+
+// Update Images
+router.put("/:userId/upload-images", (req, res) => {
+
+    const { userId } = req.params
+    const galleryProfile = req.body.images
+
+    User
+        .findByIdAndUpdate(userId, { $addToSet: { images: { $each: galleryProfile } } }, { new: true })
+        .then(response => {
+            console.log('LO QUE ME LLEGA ------------->', galleryProfile)
+            console.log('LA RESPONSE ------------->', response)
+            res.json(response)
+        })
+        .catch(err => {
+            console.log('EL ERROR ------------>', err)
+            res.status(500).json(err)
+        })
+
+
+})
+
 module.exports = router
 
