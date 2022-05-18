@@ -24,6 +24,10 @@ const userSchema = new Schema(
       enum: ['WINKER', 'WINKER-PREMIUM'],
       default: 'WINKER'
     },
+    boughtExperiences: {
+      type: String,
+      ref: 'Experience',
+    },
     dates: {
       type: Schema.Types.ObjectId,
       ref: 'Date',
@@ -50,6 +54,10 @@ const userSchema = new Schema(
       enum: ['Men', 'Women', 'Everyone'],
     },
     matches: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    lovers: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
     }],

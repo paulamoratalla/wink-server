@@ -2,14 +2,14 @@ const { Schema, model } = require("mongoose");
 
 const winkdateSchema = new Schema(
     {
-        experience: {
+        boughtExperiences: {
             type: Schema.Types.ObjectId,
-            ref: 'Experience',
+            ref: 'User',
         },
         date: {
             type: Date
         },
-        lover: {
+        matches: {
             type: Schema.Types.ObjectId,
             ref: 'User',
         },

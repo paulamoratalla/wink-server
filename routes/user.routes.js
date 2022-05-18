@@ -3,7 +3,7 @@ const User = require('./../models/User.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 // Get all users 
-router.get('/all', (req, res) => {
+router.get('/all', isAuthenticated, (req, res) => {
 
     User
         .find()
@@ -11,7 +11,6 @@ router.get('/all', (req, res) => {
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err))
 })
-
 
 // Get my profile
 router.get('/profile', isAuthenticated, (req, res) => {
@@ -36,7 +35,7 @@ router.delete('/:userId/delete', isAuthenticated, (req, res) => {
 })
 
 // Edit user
-router.put('/:userId/edit', (req, res) => {
+router.put('/:userId/edit', isAuthenticated, (req, res) => {
 
     const { name, email, birth, identity, profileImg, city, interestedGender, height, exercise, zodiac, education, drink, smoke, lookingFor, children, religion, political } = req.body
     const { userId } = req.params
@@ -60,17 +59,42 @@ router.put('/:userId/edit', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-//Add to people
-router.post('/:usersId/add-people', (req, res, next) => {
+//Add to matches
+router.post('/:userId/add', isAuthenticated, (req, res, next) => {
 
     const { userId } = req.params
-    const thisUser = req.payload._id
+    const myUser = req.payload._id
 
     User
-        .findByIdAndUpdate(thisUser, { $addToSet: { people: userId } })
-        .then(user => res.json(user))
+        .findByIdAndUpdate(myUser, { $addToSet: { matches: userId } })
+        .then(() => {
+        })
+        .catch(err => res.status(500).json(err))
+
+    User
+        .findById(myUser)
+        .then((user1) => {
+
+            User
+                .findById(userId)
+                .then((user2) => {
+                    if (user1.matches.includes(userId) && (user2.matches.includes(myUser))) {
+                        user1.lovers.push(userId) && user2.lovers.push(myUser)
+                    }
+                })
+                .catch(err => res.status(500).json(err))
+
+        })
         .catch(err => res.status(500).json(err))
 });
+
+// if (userId.matches.includes(myUser) && (myUser.matches.includes(userId))) {
+//     // (myUser, { $addToSet: { lovers: userId } }) && (userId, { $addToSet: { lovers: myUser } })
+
+// }
+
+//     Promise
+//         .all(promises)
 
 //Add to my matches
 // router.post('/:usersId/add-defmatch', (req, res, next) => {
@@ -85,14 +109,14 @@ router.post('/:usersId/add-people', (req, res, next) => {
 //             .catch(err => res.status(500).json(err))
 // });
 
-//Remove from people
-router.post('/:usersId/remove', (req, res, next) => {
+//Remove from matches
+router.post('/:usersId/remove', isAuthenticated, (req, res, next) => {
 
     const { userId } = req.params
     const thisUser = req.payload._id
 
     User
-        .findByIdAndUpdate(thisUser, { $pull: { people: userId } })
+        .findByIdAndUpdate(thisUser, { $pull: { matches: userId } })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
@@ -104,6 +128,7 @@ router.get('/:userId', isAuthenticated, (req, res) => {
 
     User
         .findById(userId)
+        .populate('matches lovers boughtExperiences')
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
