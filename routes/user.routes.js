@@ -1,45 +1,45 @@
 const router = require('express').Router()
 const User = require('./../models/User.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
+<<<<<<< HEAD
 
 // Get all users 
 router.get('/all', isAuthenticated, (req, res) => {
 
+=======
+// Get all users
+router.get('/all', isAuthenticated, (req, res) => {
+>>>>>>> 14c92f0bf5dc93b33dd92aaa8e02ff8f0ef6efb0
     User
         .find()
         .select()
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err))
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 14c92f0bf5dc93b33dd92aaa8e02ff8f0ef6efb0
 // Get my profile
 router.get('/profile', isAuthenticated, (req, res) => {
-
     const { _id } = req.payload
-
     User
         .findById(_id)
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
-
-// Delete user 
+// Delete user
 router.delete('/:userId/delete', isAuthenticated, (req, res) => {
-
     const { userId } = req.params
-
     User
         .findByIdAndDelete(userId)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
-
 // Edit user
 router.put('/:userId/edit', isAuthenticated, (req, res) => {
-
     const { name, email, birth, identity, profileImg, city, interestedGender, height, exercise, zodiac, education, drink, smoke, lookingFor, children, religion, political } = req.body
     const { userId } = req.params
-
     const features = {
         height: height,
         exercise: exercise,
@@ -52,7 +52,6 @@ router.put('/:userId/edit', isAuthenticated, (req, res) => {
         religion: religion,
         political: political
     }
-
     User
         .findByIdAndUpdate(userId, { name, email, birth, identity, profileImg, city, interestedGender, features })
         .then(user => res.json(user))
@@ -83,54 +82,45 @@ router.post('/:userId/add', isAuthenticated, (req, res, next) => {
                     }
                 })
                 .catch(err => res.status(500).json(err))
-
         })
         .catch(err => res.status(500).json(err))
 });
 
-// if (userId.matches.includes(myUser) && (myUser.matches.includes(userId))) {
-//     // (myUser, { $addToSet: { lovers: userId } }) && (userId, { $addToSet: { lovers: myUser } })
-
-// }
-
-//     Promise
-//         .all(promises)
-
-//Add to my matches
-// router.post('/:usersId/add-defmatch', (req, res, next) => {
-
-//     const { userId } = req.params
-//     const thisUser = req.session.currentUser._id
-//     if ()
-
-//         User
-//             .findByIdAndUpdate(thisUser, { $addToSet: { defMatches: userId } })
-//             .then(user => res.json(user))
-//             .catch(err => res.status(500).json(err))
-// });
-
-//Remove from matches
 router.post('/:usersId/remove', isAuthenticated, (req, res, next) => {
-
     const { userId } = req.params
     const thisUser = req.payload._id
-
     User
         .findByIdAndUpdate(thisUser, { $pull: { matches: userId } })
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
-
 // Get user profile
 router.get('/:userId', isAuthenticated, (req, res) => {
-
     const { userId } = req.params
-
     User
         .findById(userId)
         .populate('matches lovers boughtExperiences')
         .then(user => res.json(user))
         .catch(err => res.status(500).json(err))
 })
+
+// Update Images
+router.put("/:userId/upload-images", (req, res) => {
+
+    const { userId } = req.params
+    const galleryProfile = req.body.images
+
+    User
+        .findByIdAndUpdate(userId, { $addToSet: { images: { $each: galleryProfile } } }, { new: true })
+        .then(response => {
+            res.json(response)
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+
+
+})
+
 module.exports = router
 
