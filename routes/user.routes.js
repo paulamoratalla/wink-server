@@ -1,25 +1,14 @@
 const router = require('express').Router()
 const User = require('./../models/User.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
-<<<<<<< HEAD
-
-// Get all users 
-router.get('/all', isAuthenticated, (req, res) => {
-
-=======
 // Get all users
 router.get('/all', isAuthenticated, (req, res) => {
->>>>>>> 14c92f0bf5dc93b33dd92aaa8e02ff8f0ef6efb0
     User
         .find()
         .select()
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err))
 })
-<<<<<<< HEAD
-
-=======
->>>>>>> 14c92f0bf5dc93b33dd92aaa8e02ff8f0ef6efb0
 // Get my profile
 router.get('/profile', isAuthenticated, (req, res) => {
     const { _id } = req.payload
