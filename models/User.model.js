@@ -4,7 +4,7 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is required"],
+      // required: [true, "Name is required"],
     },
     password: {
       type: String,
@@ -43,11 +43,11 @@ const userSchema = new Schema(
     profileImg: {
       type: String,
       default: "https://i.stack.imgur.com/l60Hf.png",
-      required: [true, " We accept JPGs and PNGs of at least 500x500px"],
+      // required: [true, " We accept JPGs and PNGs of at least 500x500px"],
     },
     city: {
       type: String,
-      required: [true, "We need your location to show who’s nearby"],
+      // required: [true, "We need your location to show who’s nearby"],
     },
     interestedGender: {
       type: String,
