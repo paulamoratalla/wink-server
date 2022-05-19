@@ -111,5 +111,14 @@ router.put("/:userId/upload-images", (req, res) => {
 
 })
 
+// Got to winker profile
+router.get('/:userId/profile', isAuthenticated, (req, res) => {
+    const { userId } = req.params
+    User
+        .findById(userId)
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
 
