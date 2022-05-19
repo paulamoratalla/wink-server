@@ -13,4 +13,18 @@ router.post('/image', uploader.single('imageData'), (req, res) => {
 })
 
 
+
+router.post('/images', uploader.array('photos'), (req, res) => {
+
+    if (!req.files) {
+        res.status(500).json({ errorMessage: 'Error uploading the file' })
+        return
+    }
+
+    const images = req.files.map(elm => elm.path)
+
+    res.json({ cloudinary_urls: images })
+})
+
+
 module.exports = router;

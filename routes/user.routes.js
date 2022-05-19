@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('./../models/User.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
+const uploadCloud = require('../config/cloudinary.config')
 // Get all users
 router.get('/all', isAuthenticated, (req, res) => {
     User
@@ -94,22 +95,35 @@ router.get('/:userId', isAuthenticated, (req, res) => {
 })
 
 // Update Images
-router.put("/:userId/upload-images", (req, res) => {
+router.put("/:userId/upload-images", isAuthenticated, (req, res) => {
 
-    const { userId } = req.params
-    const galleryProfile = req.body.images
+    const { _id } = req.payload
+
+    const galleryProfile = req.body.gallery
 
     User
-        .findByIdAndUpdate(userId, { $addToSet: { images: { $each: galleryProfile } } }, { new: true })
+        .findByIdAndUpdate(_id, { $addToSet: { gallery: galleryProfile } }, { new: true })
         .then(response => {
+            console.log(response)
             res.json(response)
         })
         .catch(err => {
             res.status(500).json(err)
         })
-
-
 })
+
+// Delete one Image
+router.put("/:userId/edit-image", (req, res) => {
+
+    const { userId } = req.payload._id
+    const galleryProfile = req.body
+
+    User
+        .findByIdAndUpdate(userId, { gallery: galleryProfile }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => console.log(err))
+})
+
 
 module.exports = router
 
