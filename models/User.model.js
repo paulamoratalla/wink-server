@@ -34,7 +34,7 @@ const userSchema = new Schema(
     },
     birth: {
       type: Date,
-      // required: [true, "You must be at least 18 years old to use Wink"],
+      required: [true, "You must be at least 18 years old to use Wink"],
     },
     identity: {
       type: String,
